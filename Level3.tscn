@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Camera.gd" type="Script" id=1]
+[ext_resource path="res://Ball.gd" type="Script" id=2]
+[ext_resource path="res://Level2.gd" type="Script" id=3]
+
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="SphereMesh" id=2]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 2.80826, 0.137415, 2.83783 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 67.616, 1, 92.8808 )
+
+[node name="Level_3" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.68583, 65.548 )
+script = ExtResource( 3 )
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00543499, 2.03147, 0.0591021 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.922397, 0.386244, 0, -0.386244, 0.922397, 0, 5.60677, 6.89213 )
+script = ExtResource( 1 )
+
+[node name="End" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.40249, -3.24499, -88.3086 )
+use_collision = true
+width = 5.67201
+depth = 6.14912
+
+[node name="CSGSphere" type="CSGSphere" parent="End"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25276, 0 )
+operation = 2
+radius = 2.25083
+
+[node name="Area" type="Area" parent="End/CSGSphere"]
+
+[node name="CollisionShape" type="CollisionShape" parent="End/CSGSphere/Area"]
+shape = SubResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+use_collision = true
+width = 15.8461
+height = 0.719852
+depth = 8.71173
+
+[node name="CSGBox2" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.7214 )
+use_collision = true
+width = 6.0601
+height = 0.719852
+depth = 26.8455
+
+[node name="CSGBox5" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.0392, 5.27651, -38.4377 )
+use_collision = true
+width = 6.0601
+height = 0.719852
+depth = 26.8455
+
+[node name="CSGBox6" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.28817, 5.79058, -64.5419 )
+use_collision = true
+width = 9.69356
+height = 0.719852
+depth = 10.268
+
+[node name="CSGBox7" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.34491, -4.62082, -88.1877 )
+use_collision = true
+width = 9.69356
+height = 0.719852
+depth = 10.268
+
+[node name="CSGBox3" type="CSGBox" parent="."]
+transform = Transform( 0.0130023, -0.499505, -0.866214, -6.4633e-05, 0.866286, -0.499548, 0.999915, 0.00655123, 0.0112314, -14.0936, 2.45304, -28.0548 )
+use_collision = true
+width = 6.0601
+height = 0.719852
+depth = 11.5479
+
+[node name="Bottom" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.80903, -62.5595 )
+use_collision = true
+width = 136.736
+height = 0.719852
+depth = 187.109
+
+[node name="Area" type="Area" parent="Bottom"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Bottom/Area"]
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="End/CSGSphere/Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_entered" from="Bottom/Area" to="." method="_on_Area1_body_entered"]
